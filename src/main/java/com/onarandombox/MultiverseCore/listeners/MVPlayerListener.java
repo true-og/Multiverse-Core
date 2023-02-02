@@ -16,6 +16,7 @@ import com.onarandombox.MultiverseCore.event.MVRespawnEvent;
 import com.onarandombox.MultiverseCore.utils.CompatibilityLayer;
 import com.onarandombox.MultiverseCore.utils.PermissionTools;
 import org.bukkit.GameMode;
+import org.bukkit.GameRule;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -32,6 +33,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -96,6 +98,9 @@ public class MVPlayerListener implements Listener {
         }
         // World has been set to the appropriate world
         Location respawnLocation = getMostAccurateRespawnLocation(world);
+        respawnLocation = adjustForSpawnRadius(world, respawnLocation);
+
+        Logging.fine("Spawning %s at %s", event.getPlayer().getName(), respawnLocation.toString());
 
         MVRespawnEvent respawnEvent = new MVRespawnEvent(respawnLocation, event.getPlayer(), "compatability");
         this.plugin.getServer().getPluginManager().callEvent(respawnEvent);
@@ -108,6 +113,26 @@ public class MVPlayerListener implements Listener {
             return mvw.getSpawnLocation();
         }
         return w.getSpawnLocation();
+    }
+
+    private Location adjustForSpawnRadius(World world, Location location) {
+        Location respawnLocation = location.clone();
+        int spawnRadius = Optional.ofNullable(world.getGameRuleValue(GameRule.SPAWN_RADIUS)).orElse(1);
+
+        if (spawnRadius > 1) {
+            // Math formula from https://stackoverflow.com/a/5838055
+            double t = 2 * Math.PI * Math.random();
+            double u = (Math.random() + Math.random()) * spawnRadius;
+            double r = u > spawnRadius ? (2 * spawnRadius) - u : u;
+            double x = r * Math.cos(t);
+            double z = r * Math.sin(t);
+
+            Logging.fine("Adjust spawn radius with offset: %f, %f", x, z);
+            respawnLocation.add(x, 0, z);
+        }
+
+        return Optional.ofNullable(this.plugin.getSafeTTeleporter().getSafeLocation(respawnLocation, 48, 16))
+                .orElse(respawnLocation);
     }
 
     /**
