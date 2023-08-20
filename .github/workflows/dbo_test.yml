@@ -13,8 +13,9 @@ jobs:
         uses: dsaltares/fetch-gh-release-asset@master
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          version: tags/${{ github.event.inputs.version }}
-          file: multiverse-signportals-${{ github.event.inputs.version }}.jar
+          # version: tags/${{ github.event.inputs.version }}
+          file: multiverse-core-*\\.jar
+          target: 'subdir/'
 
       - name: Upload to dev.bukkit.org
         uses: benwoo1110/dbo-upload-action@main
@@ -26,5 +27,5 @@ jobs:
           display_name: ${{ github.event.inputs.version }}
           game_versions: 9994 9974 9973 9561 9560 9261 9190 9016 8897 8849 8503 7915 7667 7330 7105
           relations: '[{"slug": "multiverse-portals", "type": "optionalDependency"}]'
-          file: ${{ github.workspace }}/multiverse-signportals-${{ github.event.inputs.version }}.jar
+          file: ${{ github.workspace }}/subdir/multiverse-core-${{ github.event.inputs.version }}.jar
           debug: true
