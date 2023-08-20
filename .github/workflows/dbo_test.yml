@@ -15,7 +15,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           # version: tags/${{ github.event.inputs.version }}
           regex: true
-          file: mulitverse-core-(.*)\.jar
+          file: multiverse-core-(.*)\.jar
           target: 'subdir/'
 
       - name: Upload to dev.bukkit.org
