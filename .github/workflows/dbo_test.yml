@@ -23,10 +23,10 @@ jobs:
         with:
           api_token: ${{ secrets.DBO_UPLOAD_API_TOKEN }}
           project_id: 30765
-          changelog: ${{ toJson(steps.release-artifact.outputs.body) }}
+          changelog: ${{ steps.release-artifact.outputs.body }}
           changelog_type: markdown
           display_name: ${{ steps.release-artifact.outputs.version }}
           game_versions: 9994 9974 9973 9561 9560 9261 9190 9016 8897 8849 8503 7915 7667 7330 7105
           project_relations: '[{"slug": "multiverse-portals", "type": "optionalDependency"}]'
-          file_path: ${{ github.workspace }}/subdir/multiverse-core-${{ steps.release-artifact.outputs.version }}.jar
+          file_path: ${{ github.workspace }}/subdir/multiverse-core-${{ steps.release-artifact.outputs.version }}.jar.fail
           debug: true
