@@ -19,7 +19,7 @@ jobs:
           target: 'subdir/'
 
       - name: Upload to dev.bukkit.org
-        uses: benwoo1110/dbo-upload-action@main
+        uses: benwoo1110/dbo-upload-action@v0.1.0
         with:
           api_token: ${{ secrets.DBO_UPLOAD_API_TOKEN }}
           project_id: 30765
