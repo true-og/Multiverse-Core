@@ -14,6 +14,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           # version: tags/${{ github.event.inputs.version }}
+          regex: true
           file: multiverse-core-*\\.jar
           target: 'subdir/'
 
