@@ -32,7 +32,7 @@ jobs:
               {"slug": "multiverse-portals", "type": "optionalDependency"},
               {"slug": "multiverse-netherportals", "type": "optionalDependency"},
               {"slug": "multiverse-signportals", "type": "optionalDependency"},
-              {"slug": "multiverse-inventories", "type": "optionalDependency"},
+              {"slug": "multiverse-inventories", "type": "optionalDependency"}
             ]
           file_path: ${{ github.workspace }}/subdir/multiverse-core-${{ steps.release-artifact.outputs.version }}.jar
           debug: true
