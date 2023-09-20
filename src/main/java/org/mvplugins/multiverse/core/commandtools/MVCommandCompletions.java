@@ -18,6 +18,7 @@ import com.dumptruckman.minecraft.util.Logging;
 import com.google.common.collect.Sets;
 import io.vavr.control.Try;
 import jakarta.inject.Inject;
+import org.bukkit.Difficulty;
 import org.bukkit.GameRule;
 import org.jetbrains.annotations.NotNull;
 import org.jvnet.hk2.annotations.Service;
@@ -50,6 +51,7 @@ public class MVCommandCompletions extends PaperCommandCompletions {
 
         registerAsyncCompletion("commands", this::suggestCommands);
         registerAsyncCompletion("destinations", this::suggestDestinations);
+        registerStaticCompletion("difficulty", this::suggestDifficulty);
         registerAsyncCompletion("flags", this::suggestFlags);
         registerStaticCompletion("gamerules", this::suggestGamerules);
         registerStaticCompletion("mvconfigs", config.getNodes().getNames());
@@ -97,6 +99,10 @@ public class MVCommandCompletions extends PaperCommandCompletions {
                 .suggestDestinations((BukkitCommandIssuer)context.getIssuer(), context.getInput());
     }
 
+    private Collection<String> suggestDifficulty() {
+        return Arrays.stream(Difficulty.values()).map(Difficulty::name).toList();
+    }
+
     private Collection<String> suggestFlags(@NotNull BukkitCommandCompletionContext context) {
         String groupName = context.getConfig("groupName", "");
 
@@ -106,7 +112,7 @@ public class MVCommandCompletions extends PaperCommandCompletions {
     }
 
     private Collection<String> suggestGamerules() {
-        return Arrays.stream(GameRule.values()).map(GameRule::getName).collect(Collectors.toList());
+        return Arrays.stream(GameRule.values()).map(GameRule::getName).toList();
     }
 
     private Collection<String> suggestMVWorlds(BukkitCommandCompletionContext context) {
