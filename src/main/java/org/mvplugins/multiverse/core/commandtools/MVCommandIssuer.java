@@ -1,5 +1,6 @@
 package org.mvplugins.multiverse.core.commandtools;
 
+import co.aikar.commands.MessageKeys;
 import co.aikar.commands.MessageType;
 import co.aikar.commands.OpenBukkitCommandIssuer;
 import co.aikar.locales.MessageKeyProvider;
@@ -20,6 +21,23 @@ public class MVCommandIssuer extends OpenBukkitCommandIssuer {
     @Override
     public MVCommandManager getManager() {
         return commandManager;
+    }
+
+    public void sendError(String message) {
+        sendMessage(MessageType.ERROR, message);
+    }
+
+    public void sendSyntax(String message) {
+        sendMessage(MessageType.SYNTAX, message);
+    }
+
+    public void sendInfo(String message) {
+        sendMessage(MessageType.INFO, message);
+    }
+
+    public void sendMessage(MessageType messageType, String message) {
+        getManager().sendMessage(this, messageType, MessageKeys.INFO_MESSAGE,
+                "{message}", message);
     }
 
     public void sendError(Message message) {
