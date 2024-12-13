@@ -6,7 +6,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
-version = System.getenv('GITHUB_VERSION') ?: 'local'
+version = System.getenv('GITHUB_VERSION') ?: '1.19.4'
 group = 'com.onarandombox.multiversecore'
 description = 'Multiverse-Core'
 
