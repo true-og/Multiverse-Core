@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "org.mvplugins.multiverse.core"
-version = System.getenv("GITHUB_VERSION") ?: "local"
+version = System.getenv("GITHUB_VERSION") ?: "4.3.14"
 description = "Multiverse-Core"
 
 java {
@@ -193,7 +193,8 @@ tasks.named<ShadowJar>("shadowJar") {
     relocate("io.papermc.lib", "org.mvplugins.multiverse.external.paperlib")
     configurations = listOf(project.configurations.getByName("shadowed"))
     archiveClassifier.set("")
-    archiveFileName.set("Mutliverse-Core.jar")
+    archiveBaseName.set("Mutliverse-Core")
+    archiveVersion.set(project.version.toString())
 }
 
 tasks.build { dependsOn(tasks.named("shadowJar")) }
