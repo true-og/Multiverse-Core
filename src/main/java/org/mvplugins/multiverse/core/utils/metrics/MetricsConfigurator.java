@@ -3,17 +3,18 @@ package org.mvplugins.multiverse.core.utils.metrics;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import com.dumptruckman.minecraft.util.Logging;
-import jakarta.annotation.PostConstruct;
-import jakarta.inject.Inject;
-import org.apache.commons.lang.WordUtils;
+import org.apache.commons.lang3.text.WordUtils;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.World;
 import org.jvnet.hk2.annotations.Service;
-
 import org.mvplugins.multiverse.core.MultiverseCore;
 import org.mvplugins.multiverse.core.world.LoadedMultiverseWorld;
 import org.mvplugins.multiverse.core.world.WorldManager;
+
+import com.dumptruckman.minecraft.util.Logging;
+
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
 
 @Service
 public class MetricsConfigurator {

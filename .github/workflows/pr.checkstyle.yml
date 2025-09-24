@@ -1,9 +1,0 @@
-name: 'PR: Checkstyle'
-
-on:
-  pull_request:
-    types: [opened, synchronize]
-
-jobs:
-  checkstyle:
-    uses: ./.github/workflows/generic.checkstyle.yml

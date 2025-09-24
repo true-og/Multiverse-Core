@@ -1,5 +1,8 @@
 package org.mvplugins.multiverse.core.commands;
 
+import static org.mvplugins.multiverse.core.utils.file.FileUtils.getBukkitConfig;
+import static org.mvplugins.multiverse.core.utils.file.FileUtils.getServerProperties;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -7,25 +10,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 
-import co.aikar.commands.CommandIssuer;
-import co.aikar.commands.annotation.CommandAlias;
-import co.aikar.commands.annotation.CommandCompletion;
-import co.aikar.commands.annotation.CommandPermission;
-import co.aikar.commands.annotation.Description;
-import co.aikar.commands.annotation.Optional;
-import co.aikar.commands.annotation.Subcommand;
-import co.aikar.commands.annotation.Syntax;
-import com.dumptruckman.minecraft.util.Logging;
-import jakarta.inject.Inject;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jvnet.hk2.annotations.Service;
-
 import org.mvplugins.multiverse.core.MultiverseCore;
 import org.mvplugins.multiverse.core.commandtools.MVCommandManager;
-import org.mvplugins.multiverse.core.commandtools.MultiverseCommand;
 import org.mvplugins.multiverse.core.commandtools.flags.CommandFlag;
 import org.mvplugins.multiverse.core.commandtools.flags.CommandValueFlag;
 import org.mvplugins.multiverse.core.commandtools.flags.ParsedCommandFlags;
@@ -37,8 +28,17 @@ import org.mvplugins.multiverse.core.utils.webpaste.PasteServiceFactory;
 import org.mvplugins.multiverse.core.utils.webpaste.PasteServiceType;
 import org.mvplugins.multiverse.core.world.WorldManager;
 
-import static org.mvplugins.multiverse.core.utils.file.FileUtils.getBukkitConfig;
-import static org.mvplugins.multiverse.core.utils.file.FileUtils.getServerProperties;
+import com.dumptruckman.minecraft.util.Logging;
+
+import co.aikar.commands.CommandIssuer;
+import co.aikar.commands.annotation.CommandAlias;
+import co.aikar.commands.annotation.CommandCompletion;
+import co.aikar.commands.annotation.CommandPermission;
+import co.aikar.commands.annotation.Description;
+import co.aikar.commands.annotation.Optional;
+import co.aikar.commands.annotation.Subcommand;
+import co.aikar.commands.annotation.Syntax;
+import jakarta.inject.Inject;
 
 @Service
 @CommandAlias("mv")

@@ -13,6 +13,8 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import net.kyori.adventure.text.Component;
+
 /**
  * Used by {@link CommandQueueManager}, so different commands block can be recognised as one.
  */
@@ -118,4 +120,10 @@ class DummyCommandBlockSender implements CommandSender {
     public void setOp(boolean value) {
         throw new UnsupportedOperationException();
     }
+
+	@Override
+	public @NotNull Component name() {
+		return Component.text(getName());
+	}
+	
 }
