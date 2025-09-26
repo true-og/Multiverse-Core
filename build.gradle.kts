@@ -193,7 +193,7 @@ tasks.named<ShadowJar>("shadowJar") {
     relocate("io.papermc.lib", "org.mvplugins.multiverse.external.paperlib")
     configurations = listOf(project.configurations.getByName("shadowed"))
     archiveClassifier.set("")
-    archiveBaseName.set("Mutliverse-Core")
+    archiveBaseName.set("Multiverse-Core")
     archiveVersion.set(project.version.toString())
 }
 
