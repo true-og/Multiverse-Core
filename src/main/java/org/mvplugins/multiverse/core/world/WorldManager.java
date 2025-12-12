@@ -176,7 +176,7 @@ public final class WorldManager {
     private void removeWorldsNotInConfigs(Collection<String> removedWorlds) {
         removedWorlds.forEach(worldName -> getWorld(worldName)
                 .map(world -> removeWorld(RemoveWorldOptions.world(world)))
-                .getOrElse(() -> worldActionResult(RemoveFailureReason.WORLD_NON_EXISTENT, worldName))
+                .getOrElse(() -> worldActionResult(RemoveFailureReason.UNLOAD_FAILED, worldName))
                 .onFailure(failure ->
                         Logging.severe("Failed to unload world %s: %s", worldName, failure))
                 .onSuccess(success ->
@@ -891,9 +891,7 @@ public final class WorldManager {
         }).onFailure(exception -> {
             Logging.severe("Failed to create bukkit world: " + worldCreator.name());
             exception.printStackTrace();
-        }).andFinally(() -> {
-            this.loadTracker.remove(worldCreator.name());
-        }).fold(throwable -> Attempt.failure(WorldCreatorFailureReason.BUKKIT_CREATION_FAILED,
+        }).andFinally(() -> this.loadTracker.remove(worldCreator.name())).fold(throwable -> Attempt.failure(WorldCreatorFailureReason.BUKKIT_CREATION_FAILED,
                         Replace.WORLD.with(worldCreator.name()),
                         Replace.ERROR.with(throwable)),
                 Attempt::success);

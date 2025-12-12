@@ -238,12 +238,15 @@ public final class AsyncSafetyTeleporterAction {
             @NotNull Location location,
             @NotNull List<Entity> passengers
     ) {
-        List<Entity> toTeleport = new ArrayList<>(passengers);
-        toTeleport.addFirst(teleportee);
+        List<Entity> toTeleport = new ArrayList<>(passengers.size() + 1);
+        toTeleport.add(teleportee);
+        toTeleport.addAll(passengers);
 
-        return AsyncAttemptsAggregate.allOfAggregate(toTeleport.stream()
-                        .map(passenger -> doAsyncTeleport(passenger, location))
-                        .toList())
+        return AsyncAttemptsAggregate.allOfAggregate(
+                        toTeleport.stream()
+                                .map(passenger -> doAsyncTeleport(passenger, location))
+                                .toList()
+                )
                 .onSuccess(() -> Bukkit.getScheduler().runTask(multiverseCore, () -> {
                     passengers.forEach(teleportee::addPassenger);
                     Logging.finer("Mounted %d passengers to %s", passengers.size(), teleportee.getName());
