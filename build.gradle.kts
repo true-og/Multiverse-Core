@@ -26,7 +26,7 @@ plugins {
 }
 
 group = "org.mvplugins.multiverse.core"
-version = System.getenv("GITHUB_VERSION") ?: "local"
+version = System.getenv("GITHUB_VERSION") ?: "5.3.4.17"
 description = "Multiverse-Core"
 
 val sourceSets = extensions.getByType<SourceSetContainer>()
