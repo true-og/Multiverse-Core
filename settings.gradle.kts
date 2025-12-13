@@ -7,5 +7,5 @@ pluginManagement {
     }
 }
 
-rootProject.name = "multiverse-core"
+rootProject.name = "Multiverse-Core"
 
